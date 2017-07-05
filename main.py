@@ -145,8 +145,6 @@ def send_message():
         Steganography.encode(original_image, output_path,secret_text_other)
         new_chat = ChatMessage(secret_text, True)
         new_friendlist[friend_choice].chats.append(new_chat)
-    elif len(secret_text) == None or secret_text==None:
-        print'Empty secret messages not allowed...So please Try again letter'
     else:
         Steganography.encode(original_image, output_path,secret_text)
         new_chat = ChatMessage(secret_text, True)
@@ -159,16 +157,20 @@ def read_message():
     #firstly we selecting friend..
     sender = select_friend()
     #to input
-    output_path = raw_input("What is the name/path of the file?")
     output_path='output.jpg'
     #for text
     #decode are use to view hide text from image...
+
     secret_text = Steganography.decode(output_path)
-    new_chat = ChatMessage(secret_text,False)
-    #The data will be saved on output....
-    new_friendlist[sender].chats.append(new_chat)
-    #you can see output..
-    print "Your secret message has been saved!"
+    secret_text=str(secret_text)
+    if secret_text==None:
+        print('Empty')
+    else:
+        new_chat = ChatMessage(secret_text,False)
+        #The data will be saved on output....
+        new_friendlist[sender].chats.append(new_chat)
+        #you can see output..
+        print "Your secret message has been saved!"
 #You can read the chat history which is action performed..
 def read_chat_history():
     #select a friend
